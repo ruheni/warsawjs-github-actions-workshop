@@ -34,7 +34,7 @@ jobs:
         run: yarn test:ci
       
       - name: Lint CI 
-        run: yarn lint
+        run: yarn lint:ci
 
       - name: Run e2e tests
         run: yarn e2e
