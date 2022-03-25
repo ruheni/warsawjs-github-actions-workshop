@@ -26,12 +26,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install
 
       - name: Run tests
         run: yarn test:ci
+  # => split single job into multiple jobs – less developer time but will take longer on GH actions
   lint:
       # define type of machine your action will run on
     runs-on: ubuntu-latest
@@ -49,6 +51,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install
@@ -75,6 +78,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install
