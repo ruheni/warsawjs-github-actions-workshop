@@ -28,6 +28,9 @@ jobs:
           node-version: 16
           cache: 'yarn'
 
+      - name: Install dependencies
+        run: yarn install
+
   # name of the job
   test:
     # define type of machine your action will run on
@@ -54,7 +57,7 @@ jobs:
 
       - name: Run tests
         run: yarn test:ci
-  # => split single job into multiple jobs – less developer time but will take longer on GH actions
+  # => split single job into multiple jobs (parallel steps) – less developer time but will take longer on GH actions
   lint:
     needs: build-and-cache
       # define type of machine your action will run on
