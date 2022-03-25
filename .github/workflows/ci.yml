@@ -7,6 +7,10 @@ on:
     branches:
       - main
 
+concurrency:
+    group: ci-tests-${{ github.ref }}-1
+    cancel-in-progress: true
+
 jobs:
   # each job runs on its own container
   build-and-cache: 
@@ -26,7 +30,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          # caches global yarn install
+          # caches global yarn installation
           cache: 'yarn'
 
       - name: Cache node_modules and artifacts
@@ -65,8 +69,6 @@ jobs:
           node-version: 16
           cache: 'yarn' # if there's a cache hit in the container
 
-      - name: Install dependencies
-        run: yarn install
 
       - name: Cache node_modules and artifacts
         uses: actions/cache@v2
@@ -98,9 +100,6 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install
 
       - name: Cache node_modules and artifacts
         uses: actions/cache@v2
@@ -134,9 +133,6 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install
 
       - name: Cache node_modules and artifacts
         uses: actions/cache@v2
