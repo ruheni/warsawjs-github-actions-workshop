@@ -8,8 +8,8 @@ on:
       - main
 
 jobs:
-  # name of the job
-  test:
+  # each job runs on its own container
+  build-and-cache: 
     # define type of machine your action will run on
     runs-on: ubuntu-latest
     # tell the machine what to do – steps
@@ -27,6 +27,27 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+
+  # name of the job
+  test:
+    # define type of machine your action will run on
+    needs: build-and-cache
+    runs-on: ubuntu-latest
+    # tell the machine what to do – steps
+    steps:
+      # give the step a name
+      - name: Checkout
+        # action to use for this step
+        uses: actions/checkout@v2
+        # parameters used for the action based on the documentation
+        with:
+         fetch-depth: 0
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn' # if there's a cache hit in the container
 
       - name: Install dependencies
         run: yarn install
